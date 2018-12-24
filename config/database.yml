@@ -49,6 +49,9 @@ test:
 #
 production:
   <<: *default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
   database: helper-board_production
   username: helper-board
   password: <%= ENV['HELPER-BOARD_DATABASE_PASSWORD'] %>

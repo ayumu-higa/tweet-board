@@ -1,0 +1,27 @@
+<h1>ヘルパー　一覧</h1>
+
+<% if @helpers.any? %>
+ <table class="table table-striped">
+   <thead>
+     <tr>
+       <th>id</th>
+       <th>ステータス</th>
+       <th>ヘルパー</th>
+     </tr>
+   </thead>
+   <tbody>
+     <% @helpers.each do |helper| %>
+     <tr>
+       <td><%= link_to helper.id, helper %></td>
+       <td><%= helper.status %></td>
+       <td><%= helper.content %></td>
+     </tr>
+     <% end %>
+   </tbody>
+   
+ </table>
+ <div>
+  <%= paginate @helpers %>
+ </div>
+ <% end %>
+<%= link_to '新規作成ページ', new_helper_path, class: "btn btn-primary" %>

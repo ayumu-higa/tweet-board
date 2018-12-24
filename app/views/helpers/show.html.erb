@@ -1,0 +1,21 @@
+<h1>id:<%= @helper.id %> 詳細ページ</h1>
+
+<table class="table table-bordered">
+  <tr>
+    <th>id</th>
+    <td><%= @helper.id %></td>
+  </tr>
+  <tr>
+    <th>ステータス</th>
+    <td><%= @helper.status %></td>
+  </tr>
+  <tr>
+    <th>ヘルパー</th>
+    <td><%= @helper.content %></td>
+  </tr>
+  
+  
+</table>
+
+<%= link_to '編集ページ', edit_helper_path(@helper), class: 'btn btn -default' %>
+<%= link_to '削除する',@helper,method: :delete, data:{confirm: '本当に削除してよろしいですか？'}, class: 'btn btn-danger' %>
