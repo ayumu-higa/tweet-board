@@ -1,5 +1,6 @@
 class HelpersController < ApplicationController
-  
+  before_action :require_user_logged_in
+  before_action :correct_user, only:[:index,:show,:edit,:update,:destroy]
   def index
     @helpers = Helper.order(created_at: :desc).page(params[:page]).per(10)
   end
@@ -13,11 +14,14 @@ class HelpersController < ApplicationController
   end
   
   def create
-    @helper = Helper.new(helper_params)
+    @helper = current_user.helpers.build(helper_params)
+    
     if @helper.save
        flash[:success] = '投稿されました'
        redirect_to @helper
     else
+      @helper = current_user.helpers.order('created_at DESC').page(params[:page])
+      
       flash.now[:danger] = '投稿されませんでした'
       render :new
     end
@@ -59,6 +63,17 @@ class HelpersController < ApplicationController
   def helper_params
     params.require(:helper).permit(:content,:status)
   end
+  
+  def correct_user
+    @helper = current_user.helpers.find_by(id: params[:id])
+    unless @helper
+     redirect_to root_url
+    end
+    
+  end
+  
+  
+  
 end
 
 
